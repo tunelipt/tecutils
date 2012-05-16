@@ -1,0 +1,9 @@
+Package: tecutils
+Version: 0.2
+Date: 2012-02-03
+Title: Tecplot utilities
+Author: Paulo J. S. Jabardo <pjabardo@gmail.com>
+Maintainer: Paulo J. S. Jabardo <pjabardo@gmail.com>
+Depends: R (>= 2.8.0)
+Description: Useful functions for processing tecplot structured data files. 
+License: GPL (>= 3)

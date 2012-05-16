@@ -1,0 +1,13 @@
+useDynLib(tecutils)
+
+export(readTecplot)
+export(pnpoly)
+export(pointInZone)
+export(plotZone)
+export(zoneCoords)
+export(zonePolygon)
+export(polygonIndex)
+export(interpolateZone)
+export(interpPoints)
+export(applyInterp)
+
