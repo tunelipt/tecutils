@@ -1,6 +1,7 @@
 useDynLib(tecutils)
 
 export(readTecplot)
+export(writeTecplot)
 export(pnpoly)
 export(pointInZone)
 export(plotZone)

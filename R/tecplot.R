@@ -124,7 +124,7 @@ readTecplot <- function(fname){
   }
 
   vars <- parseHeader(line)
-  zlst <- list()
+   zlst <- list()
   zc <- 0
   while(TRUE){
     repeat{
@@ -238,7 +238,7 @@ statsPiv <- function(files){
 }
 
 
-writeTecplot <- function(fname, d){
+writeTecplot1 <- function(fname, d){
   f <- file(fname, open='w')
   cat("TITLE =", 'VEL_STATS\n', file=f)
   cat("VARIABLES =", d$header, '\n', file=f)
@@ -248,6 +248,27 @@ writeTecplot <- function(fname, d){
     cat('ZONE T="helideck", I=', d$I, ', J=', d$J, '\n', file=f)
   write.table(d$data, row.names=FALSE, col.names=FALSE, file=f)
 
+  close(f)
+
+}
+
+
+writeTecplot <- function(fname, tec, tectitle=NULL){
+  f <- file(fname, open='w')
+  if (!is.null(tectitle))
+    cat("TITLE =", tectitle, '\n', file=f)
+
+  
+  cat("VARIABLES =", tec[[1]]$header, '\n', file=f)
+  nelems <- length(tec)
+  for (e in 1:nelems){
+    d <- tec[[e]]
+    if (!is.null(d$K) && d$K > 1)
+      cat('ZONE T="Element', e, '", I=', d$I, ', J=', d$J, ', K=', d$K, '\n', file=f)
+    else
+      cat('ZONE T="Element', e, '", I=', d$I, ', J=', d$J, '\n', file=f)
+    write.table(d$data, row.names=FALSE, col.names=FALSE, file=f)
+  }
   close(f)
 
 }
