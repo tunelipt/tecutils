@@ -1,14 +1,3 @@
-useDynLib(tecutils)
-
-export(readTecplot)
-export(writeTecplot)
-export(pnpoly)
-export(pointInZone)
-export(plotZone)
-export(zoneCoords)
-export(zonePolygon)
-export(polygonIndex)
-export(interpolateZone)
-export(interpPoints)
-export(applyInterp)
-
+export(addRadius)
+export(repeatTecZ)
+export(tecplot2dTo3d)

@@ -4,6 +4,12 @@ Date: 2012-02-03
 Title: Tecplot utilities
 Author: Paulo J. S. Jabardo <pjabardo@gmail.com>
 Maintainer: Paulo J. S. Jabardo <pjabardo@gmail.com>
-Depends: R (>= 2.8.0)
-Description: Useful functions for processing tecplot structured data files. 
+Depends:
+    R (>= 2.8.0)
+Description: Useful functions for processing tecplot structured data files.
 License: GPL (>= 3)
+Collate:
+    'polygon.R'
+    'tecplot.R'
+    'utils.R'
+    'zzz.R'
