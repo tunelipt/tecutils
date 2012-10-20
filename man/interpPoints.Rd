@@ -1,0 +1,22 @@
+\name{interpPoints}
+\alias{interpPoints}
+\title{Sets up interpolation structures for a mesh.}
+\usage{
+  interpPoints(zlst, x, y)
+}
+\arguments{
+  \item{zlst}{List of 2D structured zones.}
+
+  \item{x}{Vector with x coordinates of the points.}
+
+  \item{y}{Vector with y coordinates of the points.}
+}
+\value{
+  Interpolation structure for each point.
+}
+\description{
+  Given a mesh and a sequence of points, this function sets
+  up interpolation structures so that mesh values can be
+  easily interpolated on these points.
+}
+

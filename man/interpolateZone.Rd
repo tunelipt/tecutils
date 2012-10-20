@@ -1,0 +1,19 @@
+\name{interpolateZone}
+\alias{interpolateZone}
+\title{Return interpolation coefficients for quadrilateral.}
+\usage{
+  interpolateZone(x, y)
+}
+\arguments{
+  \item{x}{X vertices of the quadrilateral.}
+
+  \item{y}{Y vertices of the quadrilateral.}
+}
+\value{
+  Shape function coeficients.
+}
+\description{
+  Find bilinear interpolation coefficients of a given
+  quadrilateral characterized by ist vertices.
+}
+

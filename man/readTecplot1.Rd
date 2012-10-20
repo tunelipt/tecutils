@@ -1,0 +1,16 @@
+\name{readTecplot1}
+\alias{readTecplot1}
+\title{Reads a tecplot file with a single zone.}
+\usage{
+  readTecplot1(fname)
+}
+\arguments{
+  \item{fname}{File name}
+}
+\value{
+  Tecplot plot zone data.
+}
+\description{
+  Reads a tecplot strutured grid file with a single zone.
+}
+

@@ -1,11 +1,48 @@
-
-
+#' Determine if point is inside a polygon.
+#'
+#' This function determines whether a point
+#' is inside a polygon characterized by
+#' its vertices.
+#'
+#' @param xv X coordinates of the polygon's vertices.
+#' @param yv Y coordinates of the polygon's vertices.
+#' @param x X coordinate of the point.
+#' @param y Y coordinate of the point.
+#' @return TRUE if the point is inside the polygon.
+#' @export
 pnpoly <- function(xv, yv, x, y)
-  .Call('Rpoly_pnpoly', xv, yv, x, y)
+  .Call(Rpoly_pnpoly, xv, yv, x, y)
 
+#' Determine if point is inside a grid.
+#'
+#' Find out whether a point is inside a grid.
+#' The grid is defined as a tecplot 2D structured zone.
+#' A structured grid is determined by an a 2D array of points
+#' where index I runs faster that index J. This function searches
+#' each quadrilateral that makes up the grid and determines
+#' in which one  the point is. If found, it returns the corresponding
+#' (i,j) index. Else return NULL.
+#'
+#' @param z Tecplot 2D structured zone.
+#' @param x X coordinate of the point.
+#' @param y Y coordinate of the point.
+#' @return Indices (i,j) of the grid where the point is located or NULL.
+#' @export
+#The grid is defined by a 2D tecplot structured mesh.
 pointInZone <- function(z, x, y)
+  .Call(Rpoly_find_zone, z$data[,'x'], z$data[,'y'], z$I, z$J, x, y)
 
-  .Call('Rpoly_find_zone', z$data[,'x'], z$data[,'y'], z$I, z$J, x, y)
+#' Find where a point is in a mesh of zones.
+#'
+#' This function runs throuh a mesh of zones to determine
+#' where a point is located using \code{\link{pointInZone}}.
+#' If the point is located return the zone index and grid index.
+#'
+#' @param mesh List of 2D structured tecplot zones.
+#' @param x X coordinate of the point.
+#' @param y Y coordinate of the point.
+#' @return index of zone and grid or NULL if point is not located.
+#' @export
 searchZones <- function(mesh, x, y){
 
   n <- length(mesh)
@@ -18,6 +55,17 @@ searchZones <- function(mesh, x, y){
 }
 
 
+#' Plots a 2D tecplot structured zone.
+#'
+#' Debuggin utilitity that plots a 2D tecplot structured zone and
+#' identifies each cell in the grid.
+#'
+#' @param z Tecplot zone.
+#' @param add Add to an existing plot?
+#' @param add.text Plot the indices of each cell?
+#' @param cex Text font size multiplier.
+#' @param outline Draw the outline of the zone?.
+#' @export
 plotZone <- function(z, add=FALSE, add.text=TRUE, cex=1, outline=FALSE){
   vx <- z$data[,'x']
   vy <- z$data[,'y']
@@ -47,6 +95,14 @@ plotZone <- function(z, add=FALSE, add.text=TRUE, cex=1, outline=FALSE){
   }
 }
 
+
+#' Returns zone coordinate array.
+#'
+#' This function returns the coordinate arrays of a zone.
+#'
+#' @param z Tecplot zone.
+#' @return List containing the x and y coordinates the the zone array.
+#' @return List of zone coordinates in array format.
 zoneCoords <- function(z){
 
   xv <- z$data[,'x']
@@ -59,7 +115,17 @@ zoneCoords <- function(z){
 }
 
 
-  
+#' Return the quadrilateral corresponding to an index.
+#'
+#' Given a 2D tecplot structured zone and index of a cell,
+#' This function returns the x and y coordinates of the vertices
+#' of the polygon that corresponds to the cell.
+#'
+#' @param z Tecplot 2D structured zone.
+#' @param i First index.
+#' @param j Second index.
+#' @return x and y vertices of the quadrilateral.
+#' @export
 zonePolygon <- function(z, i, j){
 
   p <- zoneCoords(z)
@@ -73,14 +139,32 @@ zonePolygon <- function(z, i, j){
 }
 
 
+#' Find the index of a quadrilateral inside a structured zone.
+#'
+#' A structured zone is characterized by two indexes i and j.
+#' This function returns the index of the quadrilateral inside
+#' a structured zone.
+#'
+#' @param I Maximum size of the first index.
+#' @param J Maximum size of the second index.
+#' @param i First index.
+#' @param j Second index.
+#' @return Index of the polygon corresponding to i and j.
 polygonIndex <- function(I, J, i, j)
   i + J * (j-1)
   
 
   
   
-
-
+#' Return interpolation coefficients for quadrilateral.
+#'
+#' Find bilinear interpolation coefficients of a given
+#' quadrilateral characterized by ist vertices.
+#'
+#' @param x X vertices of the quadrilateral.
+#' @param y Y vertices of the quadrilateral.
+#' @return Shape function coeficients.
+#' @export
 interpolateZone <- function(x, y){
 
   mat <- matrix(c(1, x[1], y[1], x[1]*y[1],
@@ -97,7 +181,17 @@ interpolateZone <- function(x, y){
 }
 
 
-  
+#' Sets up interpolation structures for a mesh.
+#'
+#' Given a mesh and a sequence of points, this function
+#' sets up interpolation structures so that mesh values can
+#' be easily interpolated on these points.
+#'
+#' @param zlst List of 2D structured zones.
+#' @param x Vector with x coordinates of the points.
+#' @param y Vector with y coordinates of the points.
+#' @return Interpolation structure for each point.
+#' @export
 interpPoints <- function(zlst, x, y){
 
   npts <- length(x)
@@ -146,7 +240,17 @@ interpPoints <- function(zlst, x, y){
 }
 
 
-                                                                
+#' Interpolate a mesh.
+#'
+#' This function uses the interpolation data
+#' structure created with \code{\link{interpPoints}}
+#' to interpolate the values of a mesh made up of
+#' 2D tecplot structured zones.
+#'
+#' @param zlst Tecplot mesh to be interpolated.
+#' @param phi Interpolation data structure created with \code{\link{interpPoints}}
+#' @return Interpolated values (every variable in the mesh.
+#' @export
 applyInterp <- function(zlst, phi){
 
   nvars <- length(zlst[[1]]$header)

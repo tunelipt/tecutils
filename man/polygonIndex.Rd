@@ -1,0 +1,24 @@
+\name{polygonIndex}
+\alias{polygonIndex}
+\title{Find the index of a quadrilateral inside a structured zone.}
+\usage{
+  polygonIndex(I, J, i, j)
+}
+\arguments{
+  \item{I}{Maximum size of the first index.}
+
+  \item{J}{Maximum size of the second index.}
+
+  \item{i}{First index.}
+
+  \item{j}{Second index.}
+}
+\value{
+  Index of the polygon corresponding to i and j.
+}
+\description{
+  A structured zone is characterized by two indexes i and
+  j. This function returns the index of the quadrilateral
+  inside a structured zone.
+}
+

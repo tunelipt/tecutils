@@ -1,0 +1,23 @@
+\name{searchZones}
+\alias{searchZones}
+\title{Find where a point is in a mesh of zones.}
+\usage{
+  searchZones(mesh, x, y)
+}
+\arguments{
+  \item{mesh}{List of 2D structured tecplot zones.}
+
+  \item{x}{X coordinate of the point.}
+
+  \item{y}{Y coordinate of the point.}
+}
+\value{
+  index of zone and grid or NULL if point is not located.
+}
+\description{
+  This function runs throuh a mesh of zones to determine
+  where a point is located using \code{\link{pointInZone}}.
+  If the point is located return the zone index and grid
+  index.
+}
+

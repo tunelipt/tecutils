@@ -1,0 +1,20 @@
+\name{parseZHeader}
+\alias{parseZHeader}
+\title{Parse a zone header.}
+\usage{
+  parseZHeader(zheader, header)
+}
+\arguments{
+  \item{zheader}{Character string with zone header.}
+
+  \item{header}{Character vector with variable names.}
+}
+\value{
+  Function that reads the zone data.
+}
+\description{
+  This function parses a zone header. It returns a list
+  containing the the zone name, and the values of
+  parameters I,J,K,F and the number of data lines.
+}
+

@@ -1,0 +1,22 @@
+\name{zonePolygon}
+\alias{zonePolygon}
+\title{Return the quadrilateral corresponding to an index.}
+\usage{
+  zonePolygon(z, i, j)
+}
+\arguments{
+  \item{z}{Tecplot 2D structured zone.}
+
+  \item{i}{First index.}
+
+  \item{j}{Second index.}
+}
+\value{
+  x and y vertices of the quadrilateral.
+}
+\description{
+  Given a 2D tecplot structured zone and index of a cell,
+  This function returns the x and y coordinates of the
+  vertices of the polygon that corresponds to the cell.
+}
+

@@ -1,8 +1,13 @@
 
-# This function parses a tecplot file header (the format given by nektar)
-# It returns a list containing the labels of the variables, the number of
-# variables, the position of var x, y and z. If z is not present, it is a
-# 2d file, else a 3d file
+#' Parses tecplot header.
+#' 
+#' This function parses a tecplot file header (the format given by nektar)
+#' It returns a list containing the labels of the variables, the number of
+#' variables, the position of var x, y and z. If z is not present, it is a
+#' 2d file, else a 3d file
+#'
+#' @param header Tecplot header characterizing the variables.
+#' @return Character vector with variable names.
 parseHeader <- function(header){
   # This function parses the main header
 
@@ -20,10 +25,15 @@ parseHeader <- function(header){
 }
 
 
-
-# This function parses a zone header. It returns a list containing the
-# the zone name, and the values of parameters I,J,K,F and the number of
-# data lines
+#' Parse a zone header.
+#'
+#' This function parses a zone header. It returns a list containing the
+#' the zone name, and the values of parameters I,J,K,F and the number of
+#' data lines.
+#'
+#' @param zheader Character string with zone header.
+#' @param header Character vector with variable names.
+#' @return Function that reads the zone data.
 parseZHeader <- function(zheader, header){
   elem <- strsplit(zheader, ",")[[1]]
   n <- length(elem)
@@ -85,7 +95,13 @@ parseZHeader <- function(zheader, header){
 
 
 
-
+#' Reads a tecplot file with a single zone.
+#'
+#' Reads a tecplot strutured grid file with a single zone.
+#'
+#' @param fname File name
+#' @return  Tecplot plot zone data.
+#' @export
 readTecplot1 <- function(fname){
 
   f <- file(fname, open='r')
@@ -112,6 +128,13 @@ readTecplot1 <- function(fname){
   return(zone)
 }
 
+#' Reads a tecplot structured grid file .
+#'
+#' Reads a tecplot structured grid file with one or more zones.
+#'
+#' @param fname Tecplot file name.
+#' @return List of zone data.
+#' @export
 readTecplot <- function(fname){
 
   f <- file(fname, open='r')
@@ -141,6 +164,14 @@ readTecplot <- function(fname){
   return(zlst)
 }
 
+#' Returns a list of variables from a tecplot zone.
+#'
+#' This function returns a list of arrays of each variable
+#' in a tecplot zone.
+#'
+#' @param d tecplot structured zone.
+#' @return List of variable arrays.
+#' @export
 transfTec <- function(d){
 
   data <- list()
@@ -171,6 +202,15 @@ transfTec <- function(d){
       
       
     
+#' Reads a list of tecplot files.
+#'
+#' This function loads a list of files
+#' which have the same structure. and returns
+#' a data structure with all the data.
+#'
+#' @param files File names of structured meshes with same structure.
+#' @return List with all the data loaded.
+#' @export
 readTecFiles <- function(files){
 
   n <- length(files)
@@ -253,6 +293,14 @@ writeTecplot1 <- function(fname, d){
 }
 
 
+#' Write a tecplot structured mesh to a file.
+#'
+#' Creates a tecplot structured mesh file.
+#'
+#' @param fname Name of the file to be created.
+#' @param tec List of zone data.
+#' @param tectitle Title of the tecplot file (optional).
+#' @export
 writeTecplot <- function(fname, tec, tectitle=NULL){
   f <- file(fname, open='w')
   if (!is.null(tectitle))

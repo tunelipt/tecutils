@@ -113,7 +113,7 @@ repeatTecZ <- function(tec, n=2){
   d[,'z'] <- z
 
   tec$data <- d
-  tec$K <- nz + 1
+  tec$K <- n*nz + 1
 
   return(tec)
 }
