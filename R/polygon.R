@@ -196,7 +196,7 @@ interpPoints <- function(zlst, x, y){
 
   npts <- length(x)
   
-  zones <- lapply(1:npts, function(i){print(i); searchZones(zlst, x[i], y[i])})
+  zones <- lapply(1:npts, function(i){searchZones(zlst, x[i], y[i])})
 
   pnull <- sapply(zones, function(x) is.null(x))
   x <- x[!pnull]
