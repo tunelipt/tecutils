@@ -13,3 +13,4 @@ Collate:
     'tecplot.R'
     'utils.R'
     'zzz.R'
+RoxygenNote: 6.1.0
